@@ -9,6 +9,7 @@ class MeterReadingController {
 		res: express.Response
 	) {
 		try {
+
 			const readings = await MeterReadingService.getMeterReadings();
 
 			res.status(200).json({
@@ -16,9 +17,9 @@ class MeterReadingController {
 				data: readings,
 			});
 		} catch (err) {
-			res.status(400).json({
+			res.status(err.httpCode).json({
 				status: "Failed",
-				message: err,
+				message: err.message,
 			});
 		}
 	}
@@ -35,9 +36,9 @@ class MeterReadingController {
 				data: reading,
 			});
 		} catch (err) {
-			res.status(400).json({
+			res.status(err.httpCode).json({
 				status: "Failed",
-				message: err,
+				message: err.message,
 			});
 		}
 	}
@@ -57,9 +58,9 @@ class MeterReadingController {
 				data: readings,
 			});
 		} catch (err) {
-			res.status(400).json({
+			res.status(err.httpCode).json({
 				status: "Failed",
-				message: err,
+				message: err.message,
 			});
 		}
 	}
@@ -79,9 +80,9 @@ class MeterReadingController {
 				data: readings,
 			});
 		} catch (err) {
-			res.status(400).json({
+			res.status(err.httpCode).json({
 				status: "Failed",
-				message: err,
+				message: err.message,
 			});
 		}
 	}
@@ -105,9 +106,9 @@ class MeterReadingController {
 				data: reading,
 			});
 		} catch (err) {
-			res.status(400).json({
+			res.status(err.httpCode).json({
 				status: "Failed",
-				message: err,
+				message: err.message,
 			});
 		}
 	}
@@ -131,9 +132,9 @@ class MeterReadingController {
 				data: reading,
 			});
 		} catch (err) {
-			res.status(400).json({
+			res.status(err.httpCode).json({
 				status: "Failed",
-				message: err,
+				message: err.message,
 			});
 		}
 	}
@@ -151,9 +152,9 @@ class MeterReadingController {
 				data: reading,
 			});
 		} catch (err) {
-			res.status(400).json({
+			res.status(err.httpCode).json({
 				status: "Failed",
-				message: err,
+				message: err.message,
 			});
 		}
 	}

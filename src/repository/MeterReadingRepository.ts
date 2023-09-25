@@ -19,10 +19,6 @@ class MeterReadingRepository {
 			[id]
 		));
 
-		if (!result) {
-			throw new Error("Meter reading not found");
-		}
-
 		return result;
 	}
 
@@ -32,10 +28,6 @@ class MeterReadingRepository {
 			"SELECT * FROM readings WHERE account_number = ?",
 			[accountNumber]
 		));
-
-		if (result.length === 0) {
-			throw new Error("No meter readings found");
-		}
 
 		return result;
 	}
