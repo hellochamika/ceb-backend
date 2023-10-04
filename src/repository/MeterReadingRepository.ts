@@ -1,6 +1,8 @@
 import pool from "../config/database";
 import { MeterReading } from "../models/MeterReading";
 import { mapToMeterReadings, mapToMeterReading } from "../utils/MeterReadingUtils";
+import { HttpError } from 'routing-controllers';
+
 
 class MeterReadingRepository {
 	static async getAllReadings(): Promise<Array<MeterReading>> {
@@ -19,6 +21,10 @@ class MeterReadingRepository {
 			[id]
 		));
 
+		if (result === null) {
+			throw new HttpError(404, "No meter reading found");
+		}
+
 		return result;
 	}
 
@@ -32,34 +38,48 @@ class MeterReadingRepository {
 		return result;
 	}
 
+	static async getLastReadingByAccountNumber(accountNumber: number): Promise<MeterReading> {
+
+		const reading = await mapToMeterReading(await pool.query(
+			"SELECT * FROM readings WHERE account_number = ? ORDER BY reading_date DESC LIMIT 1",
+			[accountNumber]
+		));
+
+		return reading;
+
+
+	}
+
 	static async getLastTwoReadingsByAccountNumber(accountNumber: number): Promise<Array<MeterReading>> {
 
-		const result = await mapToMeterReadings(await pool.query(
+		const results = await mapToMeterReadings(await pool.query(
 			"SELECT * FROM readings WHERE account_number = ? ORDER BY reading_date DESC LIMIT 2",
 			[accountNumber]
 		));
 
-		if (result.length === 0) {
-			throw new Error("No meter readings found");
-		}
+		return results;
 
-		return result;
+
 	}
 
 	static async createReading(meterReading: MeterReading): Promise<MeterReading> {
+		let result;
+		try {
+			const result = await pool.query(
+				`INSERT INTO readings (account_number,reading_date,meter_reading) VALUES (?,?,?)`,
+				[
+					meterReading.accountNumber,
+					meterReading.readingDate,
+					meterReading.meterReading,
+				]
+			);
+			const [newResult] = JSON.parse(JSON.stringify(result));
 
-		const result = await pool.query(
-			`INSERT INTO readings (account_number,reading_date,meter_reading) VALUES (?,?,?)`,
-			[
-				meterReading.accountNumber,
-				meterReading.readingDate,
-				meterReading.meterReading,
-			]
-		);
+			meterReading.id = newResult.insertId;
 
-		const [newResult] = JSON.parse(JSON.stringify(result));
-
-		meterReading.id = newResult.insertId;
+		} catch (error) {
+			throw new HttpError(404, "No meter customer account found");
+		}
 
 		return meterReading;
 	}
@@ -80,7 +100,7 @@ class MeterReadingRepository {
 		const [newResult] = JSON.parse(JSON.stringify(result));
 
 		if (newResult.affectedRows === 0) {
-			throw new Error("Meter reading not found");
+			throw new HttpError(404, "No meter readings found");
 		}
 
 		return meterReading;
@@ -96,7 +116,7 @@ class MeterReadingRepository {
 		const [newResult] = JSON.parse(JSON.stringify(result));
 
 		if (newResult.affectedRows === 0) {
-			throw new Error("Meter reading not found");
+			throw new HttpError(404, "No meter readings found");
 		}
 
 		return true;

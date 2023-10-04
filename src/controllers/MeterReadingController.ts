@@ -65,22 +65,22 @@ class MeterReadingController {
 		}
 	}
 
-	static async getLastTwoReadingsByAccountNumber(
+	static async getLastReadingByAccountNumber(
 		req: express.Request,
 		res: express.Response
 	) {
 		try {
 			const accountNumber = Number(req.params.accountNumber);
-			const readings =
-				await MeterReadingService.getLastTwoReadingsByAccountNumber(
+			const reading =
+				await MeterReadingService.getLastReadingByAccountNumber(
 					accountNumber
 				);
 			res.status(200).json({
 				status: "Success",
-				data: readings,
+				data: reading,
 			});
 		} catch (err) {
-			res.status(err.httpCode).json({
+			res.status(err.httpCode || 500).json({
 				status: "Failed",
 				message: err.message,
 			});
@@ -106,7 +106,7 @@ class MeterReadingController {
 				data: reading,
 			});
 		} catch (err) {
-			res.status(err.httpCode).json({
+			res.status(500).json({
 				status: "Failed",
 				message: err.message,
 			});

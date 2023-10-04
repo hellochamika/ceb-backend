@@ -11,7 +11,7 @@ readingsRouter.get("/:id", MeterReadingController.getMeterReadingById);
 
 readingsRouter.get("/account/:accountNumber", MeterReadingController.getMeterReadingsByAccountNumber);
 
-readingsRouter.get("/account/:accountNumber/last-two", MeterReadingController.getLastTwoReadingsByAccountNumber);
+readingsRouter.get("/account/:accountNumber/last", MeterReadingController.getLastReadingByAccountNumber);
 
 readingsRouter.post("/", MeterReadingController.create);
 

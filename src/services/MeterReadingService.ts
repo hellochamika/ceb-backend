@@ -1,5 +1,7 @@
 import { MeterReading } from "../models/MeterReading";
+import { LastReadingDTO } from "../dto/LastReadingDTO";
 import MeterReadingRepository from "../repository/MeterReadingRepository";
+import CustomerRepository from "../repository/CustomerRepository";
 
 class MeterReadingService {
 	static async getMeterReadings(): Promise<Array<MeterReading>> {
@@ -14,8 +16,27 @@ class MeterReadingService {
 		return await MeterReadingRepository.getAllReadingsByAccountNumber(accountNumber);
 	}
 
-	static async getLastTwoReadingsByAccountNumber(accountNumber: number): Promise<Array<MeterReading>> {
-		return await MeterReadingRepository.getLastTwoReadingsByAccountNumber(accountNumber);
+	static async getLastReadingByAccountNumber(accountNumber: number): Promise<LastReadingDTO> {
+
+		const customer = await CustomerRepository.getCustomerById(accountNumber);
+
+		const reading = await MeterReadingRepository.getLastReadingByAccountNumber(accountNumber);
+		
+		if (reading === null) {
+			return new LastReadingDTO(
+				customer.accountNumber,
+				customer.name,
+				0,
+				null
+			);
+		}
+
+		return new LastReadingDTO(
+			customer.accountNumber,
+			customer.name,
+			reading.meterReading,
+			reading.readingDate
+		);
 	}
 
 	static async createMeterReading(meterReading: MeterReading): Promise<MeterReading> {

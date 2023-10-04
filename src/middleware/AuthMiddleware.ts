@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import SecurityService from '../services/SecurityService';
 import StaffService from '../services/StaffService';
-import { HttpError } from 'routing-controllers';
 
 export const auth = async (req: Request, res: Response, next: NextFunction) => {
 	let token;
