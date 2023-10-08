@@ -21,7 +21,7 @@ class MeterReadingService {
 		const customer = await CustomerRepository.getCustomerById(accountNumber);
 
 		const reading = await MeterReadingRepository.getLastReadingByAccountNumber(accountNumber);
-		
+
 		if (reading === null) {
 			return new LastReadingDTO(
 				customer.accountNumber,

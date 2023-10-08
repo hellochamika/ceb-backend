@@ -1,8 +1,6 @@
 import express from "express";
-import StaffService from "../services/StaffService";
-import { Staff } from "../models/Staff";
 import { StaffDTO } from "../dto/StaffDTO";
-import SecurityService from "../services/SecurityService";
+import StaffService from "../services/StaffService";
 
 
 class StaffController {
@@ -44,32 +42,6 @@ class StaffController {
 		}
 	}
 
-	static async create(
-		req: express.Request,
-		res: express.Response
-	) {
-		try {
-			const staffMember = new Staff(
-				0,
-				req.body.firstName,
-				req.body.lastName,
-				req.body.email,
-				await SecurityService.hashPassword(req.body.password),
-			);
-
-			const newStaffMember = await StaffService.createStaff(staffMember);
-
-			res.status(200).json({
-				status: "Success",
-				data: newStaffMember,
-			});
-		} catch (error) {
-			res.status(error.httpCode || 500).json({
-				status: "Failed",
-				message: error.message,
-			});
-		}
-	}
 
 	static async update(
 		req: express.Request,

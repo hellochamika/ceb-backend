@@ -9,6 +9,8 @@ export class BillDTO {
 	previousMeterReading: number;
 	previousMeterReadingDate: Date;
 
+	totalUnits: number;
+
 	firstRangeCharge: number;
 	secondRangeCharge: number;
 	thirdRangeCharge: number;
@@ -26,6 +28,8 @@ export class BillDTO {
 		previousMeterReading: number = null,
 		previousMeterReadingDate: Date = null,
 
+		totalUnits: number = null,
+
 		firstRangeCharge: number = null,
 		secondRangeCharge: number = null,
 		thirdRangeCharge: number = null,
@@ -41,6 +45,8 @@ export class BillDTO {
 
 		this.previousMeterReading = previousMeterReading;
 		this.previousMeterReadingDate = previousMeterReadingDate;
+
+		this.totalUnits = totalUnits;
 
 		this.firstRangeCharge = firstRangeCharge;
 		this.secondRangeCharge = secondRangeCharge;

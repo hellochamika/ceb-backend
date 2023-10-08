@@ -50,6 +50,8 @@ class BillService {
 		const totalCharge =
 			fixedCharge + firstRangeCharge + secondRangeCharge + thirdRangeCharge;
 
+		billDTO.totalUnits = consumption;
+
 		billDTO.firstRangeCharge = firstRangeCharge;
 		billDTO.secondRangeCharge = secondRangeCharge;
 		billDTO.thirdRangeCharge = thirdRangeCharge;

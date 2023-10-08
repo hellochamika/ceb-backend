@@ -9,7 +9,7 @@ import { auth } from "../middleware/AuthMiddleware";
 const router = express.Router();
 
 
-router.use('/readings', readingRoutes);
+router.use('/readings', auth, readingRoutes);
 
 router.use('/staff', staffRoutes);
 

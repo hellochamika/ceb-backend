@@ -19,6 +19,7 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
 		req.body.staff = staff;
 
 	} catch (error) {
+		console.log(error);
 		res.status(401).json({ message: "Unauthorized" });
 		return
 	}
