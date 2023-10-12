@@ -67,6 +67,25 @@ class StaffRepository {
 		return staffDTO;
 	}
 
+	static async approveStaff(id: number, isApproved: boolean): Promise<StaffDTO> {
+
+		const result = await pool.query(
+			`UPDATE staff SET is_approved = ? WHERE id = ?`,
+			[
+				isApproved,
+				id,
+			]
+		);
+
+		const [newResult] = JSON.parse(JSON.stringify(result));
+
+		if (newResult.affectedRows === 0) {
+			throw new Error("Staff member not found");
+		}
+
+		return await this.getStaffById(id);
+	}
+
 	static async deleteStaff(id: number): Promise<Boolean> {
 
 		const result = await pool.query(

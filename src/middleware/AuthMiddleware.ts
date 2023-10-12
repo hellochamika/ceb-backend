@@ -14,12 +14,14 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
 
 	try {
 		token = req.headers.authorization.split(" ")[1];
+
 		const id = await SecurityService.verifyToken(token);
+
 		const staff = await StaffService.getStaffById(id);
+
 		req.body.staff = staff;
 
 	} catch (error) {
-		console.log(error);
 		res.status(401).json({ message: "Unauthorized" });
 		return
 	}

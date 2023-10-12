@@ -3,7 +3,7 @@ import { Staff } from "../models/Staff";
 import AuthService from "../services/AuthService";
 import SecurityService from "../services/SecurityService";
 import StaffService from "../services/StaffService";
-import {z} from 'zod';
+import { z } from 'zod';
 
 
 class AuthController {

@@ -68,6 +68,28 @@ class StaffController {
 		}
 	}
 
+	static async approve(
+		req: express.Request,
+		res: express.Response
+	) {
+
+		try {
+			const id = Number(req.params.id);
+			const isApproved = req.body.isApproved;
+
+			const approvedStaff = await StaffService.approveStaff(id, isApproved);
+			res.status(200).json({
+				status: "Success",
+				data: approvedStaff,
+			});
+		} catch (error) {
+			res.status(error.httpCode || 500).json({
+				status: "Failed",
+				message: error.message,
+			});
+		}
+	}
+
 	static async delete(
 		req: express.Request,
 		res: express.Response

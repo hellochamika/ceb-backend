@@ -23,13 +23,17 @@ CREATE TABLE staff (
 	last_name VARCHAR(255),
 	email VARCHAR(255) NOT NULL,
 	password VARCHAR(255) NOT NULL,
-	isAdmin BOOLEAN DEFAULT FALSE,
-	isApproved BOOLEAN DEFAULT FALSE,
+	is_admin BOOLEAN DEFAULT FALSE,
+	is_approved BOOLEAN DEFAULT FALSE,
 	PRIMARY KEY (id)
 );
 
-INSERT INTO meter_readings_db.staff (first_name,last_name,email,password, isAdmin, isApproved) VALUES
+INSERT INTO meter_readings_db.staff (first_name,last_name,email,password, is_admin, is_approved) VALUES
 	 ("admin","user","admin@ceb.com","$2b$10$qvBZw10mFLl556GQnmqS3uKpfUO3O.QUGR3v7S9abhGcw6afYnKwm",TRUE,TRUE);
+	
+INSERT INTO meter_readings_db.staff (first_name,last_name,email,password) VALUES
+	 ('lasith','malinga','lasith@gmail.com','$2b$10$qvBZw10mFLl556GQnmqS3uKpfUO3O.QUGR3v7S9abhGcw6afYnKwm');	
+
 
 INSERT INTO meter_readings_db.customers (account_number,name) VALUES
 	 (10000001,"Patty O'Furniture"),

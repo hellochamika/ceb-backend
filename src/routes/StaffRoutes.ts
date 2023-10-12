@@ -11,6 +11,8 @@ staffRouter.get("/:id", StaffController.getById);
 
 staffRouter.put("/:id/edit", StaffController.update);
 
+staffRouter.put("/:id/approve", StaffController.approve);
+
 staffRouter.delete("/:id", StaffController.delete);
 
 

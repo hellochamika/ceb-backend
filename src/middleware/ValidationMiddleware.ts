@@ -91,7 +91,7 @@ const meterReadingRequestBodySchema = z.object({
 		.min(10000001, { message: "Account number must be 8 digits" })
 		.max(99999999, { message: "Account number must be 8 digits" }),
 	readingDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-	meterReading: z.number().int().positive(),
+	meterReading: z.number().int(),
 });
 
 export const validateMeterReadingRequestBody = async (

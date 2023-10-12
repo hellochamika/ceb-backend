@@ -19,6 +19,10 @@ class StaffService {
 		return await StaffRepository.updateStaff(staffDTO);
 	}
 
+	static async approveStaff(id: number, isApproved: boolean): Promise<StaffDTO> {
+		return await StaffRepository.approveStaff(id, isApproved);
+	}
+
 	static async deleteStaff(id: number): Promise<Boolean> {
 		return await StaffRepository.deleteStaff(id);
 	}

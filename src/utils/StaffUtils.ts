@@ -10,7 +10,9 @@ export async function mapToStaff([results]: any[]): Promise<StaffDTO[]> {
 			result.id,
 			result.first_name,
 			result.last_name,
-			result.email
+			result.email,
+			result.is_approved,
+			result.is_admin
 		);
 
 		staff.push(staffMember);
@@ -25,9 +27,11 @@ export async function mapToStaffMember([[result]]: any[]): Promise<StaffDTO> {
 			result.id,
 			result.first_name,
 			result.last_name,
-			result.email
-
+			result.email,
+			result.is_approved,
+			result.is_admin
 		);
+		
 		return staffMember;
 
 	} catch (error) {
